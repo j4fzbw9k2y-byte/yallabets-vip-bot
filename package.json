@@ -1,0 +1,16 @@
+{
+  "name": "yallabets-vip-bot",
+  "version": "1.0.0",
+  "description": "YallaBets VIP Subscription Bot with Telegram Stars",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "dependencies": {
+    "node-telegram-bot-api": "^0.66.0",
+    "better-sqlite3": "^11.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

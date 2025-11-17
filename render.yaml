@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: yallabets-vip-bot
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: VIP_CHANNEL_ID
+        value: "-1003495823265"
+      - key: FREE_CHANNEL
+        value: "@yallabets"
+      - key: SUBSCRIPTION_PRICE
+        value: "20"
+      - key: SUBSCRIPTION_DAYS
+        value: "30"
