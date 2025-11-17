@@ -3,6 +3,13 @@ const Database = require('better-sqlite3');
 
 // Environment variables
 const BOT_TOKEN = process.env.BOT_TOKEN;
+
+// Check if BOT_TOKEN is provided
+if (!BOT_TOKEN) {
+  console.error('❌ ERROR: BOT_TOKEN is not set in environment variables!');
+  console.error('Please add BOT_TOKEN in Render Environment Variables.');
+  process.exit(1);
+}
 const FREE_CHANNEL = process.env.FREE_CHANNEL || '@yallabets';
 const VIP_CHANNEL_ID = process.env.VIP_CHANNEL_ID || '-1003495823265';
 const SUBSCRIPTION_PRICE = parseInt(process.env.SUBSCRIPTION_PRICE) || 20;
