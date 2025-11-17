@@ -3,6 +3,7 @@ const Database = require('better-sqlite3');
 
 // Environment variables
 const BOT_TOKEN = process.env.BOT_TOKEN;
+const PAYMENT_TOKEN = process.env.PAYMENT_TOKEN;
 
 // Check if BOT_TOKEN is provided
 if (!BOT_TOKEN) {
@@ -10,6 +11,13 @@ if (!BOT_TOKEN) {
   console.error('Please add BOT_TOKEN in Render Environment Variables.');
   process.exit(1);
 }
+
+if (!PAYMENT_TOKEN) {
+  console.error('❌ ERROR: PAYMENT_TOKEN is not set in environment variables!');
+  console.error('Please add PAYMENT_TOKEN (Ammer Pay token) in Render Environment Variables.');
+  process.exit(1);
+}
+
 const FREE_CHANNEL = process.env.FREE_CHANNEL || '@yallabets';
 const VIP_CHANNEL_ID = process.env.VIP_CHANNEL_ID || '-1003495823265';
 const SUBSCRIPTION_PRICE = parseInt(process.env.SUBSCRIPTION_PRICE) || 20;
@@ -144,15 +152,15 @@ bot.onText(/\/subscribe/, async (msg) => {
     return bot.sendMessage(msg.chat.id, messages[lang].already_subscribed);
   }
   
-  // Send invoice
+  // Send invoice with Ammer Pay
   await bot.sendInvoice(
     msg.chat.id,
     'YallaBets VIP Subscription',
     `Get 10-30 expert picks per week for ${SUBSCRIPTION_DAYS} days`,
     `vip_subscription_${userId}_${Date.now()}`,
-    '',
-    'XTR',
-    [{ label: 'VIP Subscription', amount: SUBSCRIPTION_PRICE }],
+    PAYMENT_TOKEN,
+    'USD',
+    [{ label: 'VIP Subscription', amount: SUBSCRIPTION_PRICE * 100 }],
     {
       need_name: false,
       need_phone_number: false,
